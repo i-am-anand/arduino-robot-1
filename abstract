@@ -1,0 +1,11 @@
+TITLE     : IR (TV remote) based arduino gripper robot
+OBJECTIVE : TO LEARN TO INTERFACE ARDUINO WITH COMMON SENSORS AND ACTUATORS SUCH AS 
+          1. IR sensor    2.Sonar sensor    3.LCD     4.dc motors   5. servo motors 
+HARDWARE  :  1. IR sensor    2. Sonar sensor      3. LCD        4.dc motors   5. servo motors  6. IC293D   7.Breadboard     8. Wires
+            9. arduino uno  10.mechanical frame  11.TV remote  5.batteries
+WORKING   : Power button when pressed on remote will start execution of code on robot 
+            lcd will print all the commands received by IR receiver
+            four buttons on remote will control forward backward right and left movement of robot
+            special button on remote to trigger sonar sensor and print distance on lcd
+            special buttons on remote to activate and deactivate servo gripper
+            
