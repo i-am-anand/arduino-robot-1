@@ -302,7 +302,7 @@ void DumpUnavailable(void) {Serial.println(F("DumpResults unavailable"));}
 /*
  * This method dumps useful information about the decoded values.
  */
-void IRdecodeBase::DumpResults(long) {
+long IRdecodeBase::DumpResults(void) {
 #ifdef USE_DUMP
   int i;unsigned long Extent;int interval;
   if(decode_type<=LAST_PROTOCOL){
