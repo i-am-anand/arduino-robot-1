@@ -32,6 +32,8 @@
 #include "IRLibRData.h"
 #include <Arduino.h>
 
+long anand_result;
+
 volatile irparams_t irparams;
 /*
  * Returns a pointer to a flash stored string that is the name of the protocol received. 
@@ -300,13 +302,14 @@ void DumpUnavailable(void) {Serial.println(F("DumpResults unavailable"));}
 /*
  * This method dumps useful information about the decoded values.
  */
-void IRdecodeBase::DumpResults(void) {
+void IRdecodeBase::DumpResults(long) {
 #ifdef USE_DUMP
   int i;unsigned long Extent;int interval;
   if(decode_type<=LAST_PROTOCOL){
     Serial.print(F("Decoded ")); Serial.print(Pnames(decode_type));
 	Serial.print(F("(")); Serial.print(decode_type,DEC);
     Serial.print(F("): Value:")); Serial.print(value, HEX);
+    anand_result=value;
   };
   Serial.print(F(" ("));  Serial.print(bits, DEC); Serial.println(F(" bits)"));
   Serial.print(F("Raw samples(")); Serial.print(rawlen, DEC);
@@ -338,8 +341,10 @@ void IRdecodeBase::DumpResults(void) {
   Serial.print(F("Mark  min:")); Serial.print(LowMark,DEC);Serial.print(F("\t max:")); Serial.println(HiMark,DEC);
   Serial.print(F("Space min:")); Serial.print(LowSpace,DEC);Serial.print(F("\t max:")); Serial.println(HiSpace,DEC);
   Serial.println();
+  return(anand_result);
 #else
   DumpUnavailable();
+  
 #endif
 }
 
@@ -765,7 +770,7 @@ bool IRrecvLoop::GetResults(IRdecodeBase *decoder) {
 }
 #ifdef USE_ATTACH_INTERRUPTS
 /* This receiver uses the pin change hardware interrupt to detect when your input pin
- * changes state. It gives more detailed results than the 50µs interrupts of IRrecv
+ * changes state. It gives more detailed results than the 50Âµs interrupts of IRrecv
  * and theoretically is more accurate than IRrecvLoop. However because it only detects
  * pin changes, it doesn't always know when it's finished. GetResults attempts to detect
  * a long gap of space but sometimes the next signal gets there before GetResults notices.
@@ -1002,7 +1007,7 @@ void do_Blink(void) {
 }
 #ifdef USE_IRRECV
 /*
- * The original IRrecv which uses 50µs timer driven interrupts to sample input pin.
+ * The original IRrecv which uses 50Âµs timer driven interrupts to sample input pin.
  */
 void IRrecv::resume() {
   // initialize state machine variables
